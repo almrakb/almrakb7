@@ -1,13 +1,15 @@
-"use client";
-import { useEffect } from "react";
+'use client'
+
+import { useEffect } from 'react'
 import './globals.css'
 import { Inter } from 'next/font/google'
 import Script from 'next/script'
-export default function RootLayout({ children }: { children: React.ReactNode }) {
 
-  // ✅ تتبع أحداث واتساب + إرسال النموذج
+const inter = Inter({ subsets: ['latin'] })
+
+export default function Home() {
   useEffect(() => {
-    const whatsapp = document.querySelector('a[href*="wa.me"], a[href*="whatsapp"]');
+    const whatsapp = document.querySelector('[href^="https://wa.me"], [href*="&type=whatsapp"]')
     if (whatsapp) {
       whatsapp.addEventListener('click', () => {
         (window as any).ttq?.track('Contact');
@@ -42,23 +44,44 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Script id="tiktok-pixel" strategy="afterInteractive">
           {`
             !function (w, d, t) {
-              w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];
-              ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie"];
-              ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};
-              for(var i=0;i<ttq.methods.length;i++){ttq.setAndDefer(ttq,ttq.methods[i])}
-              ttq.load=function(e,n){var i="https://analytics.tiktok.com/i18n/pixel/events.js";
-              ttq._i=ttq._i||{};ttq._i[e]=[];ttq._i[e]._u=i;ttq._t=ttq._t||{};ttq._t[e]=+new Date;
-              ttq._o=ttq._o||{};ttq._o[e]=n||{};var o=document.createElement("script");
-              o.type="text/javascript";o.async=!0;o.src=i;var a=document.getElementsByTagName("script")[0];
-              a.parentNode.insertBefore(o,a)};
-              ttq.load('D29MT83C77UCUVSB65KG'); // 🔥 ضع هنا TikTok Pixel ID
+              w.TiktokAnalyticsObject = t;
+              var ttq = w[t] = w[t] || [];
+              ttq.methods = ["page", "track", "identify", "instances", "debug", "on", "off", "once", "ready", "alias", "group", "enableCookie", "disableCookie"];
+              ttq.setAndDefer = function (t, e) {
+                t[e] = function () {
+                  t.push([e].concat(Array.prototype.slice.call(arguments, 0)))
+                }
+              };
+              for (var i = 0; i < ttq.methods.length; i++) {
+                ttq.setAndDefer(ttq, ttq.methods[i])
+              }
+              ttq.load = function (e) {
+                var n = "https://analytics.tiktok.com/i18n/pixel/events.js";
+                ttq._i = ttq._i || {};
+                ttq._i[e] = ttq._i[e] || [];
+                ttq._i[e].t = +new Date;
+                ttq._i[e].e = [];
+                ttq._i[e].q = [];
+                ttq._i[e].q.push = function () {
+                  ttq._i[e].e.push(arguments);
+                };
+                var a = document.createElement("script");
+                a.type = "text/javascript";
+                a.async = !0;
+                a.src = n + "?sdkid=" + e + "&lib=ttq";
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(a, s);
+              };
+              ttq.load('D29MT83C7TUCUVSB65KG');
               ttq.page();
             }(window, document, 'ttq');
           `}
         </Script>
       </head>
       <body className={inter.className}>
-        {children}
+        <main>
+          {/* محتوى الصفحة هنا */}
+        </main>
       </body>
     </html>
   )
