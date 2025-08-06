@@ -3,12 +3,6 @@ import { Inter } from 'next/font/google'
 import Script from 'next/script'
 
 const inter = Inter({ subsets: ['latin'] })
-
-export const metadata = {
-  title: 'Almrakb Landing Page',
-  description: 'شركة المراكب للشحن والخدمات اللوجستية',
-}
-
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ar">
