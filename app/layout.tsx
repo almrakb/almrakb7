@@ -1,8 +1,13 @@
-import './globals.css';
-import { Inter } from 'next/font/google';
-import Script from 'next/script';
+import './globals.css'
+import { Inter } from 'next/font/google'
+import Script from 'next/script'
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({ subsets: ['latin'] })
+
+export const metadata = {
+  title: 'Almrakb Landing Page',
+  description: 'شركة المراكب للشحن والخدمات اللوجستية',
+}
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -23,19 +28,21 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Script id="tiktok-pixel" strategy="afterInteractive">
           {`
             !function (w, d, t) {
-              w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=[
-              "page","track","identify","instances","debug","on","off","once","ready",
-              "alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"];
+              w.TiktokAnalyticsObject=t;
+              var ttq=w[t]=w[t]||[];
+              ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie"];
               ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};
-              ttq.instance=function(t){var e=ttq._i[t]||[];return{on:function(n,i){e.push([n,i])},off:function(n,i){},track:function(n,i){e.push([n,i])}}};
-              ttq.load=function(e,n){var i=d.createElement("script");i.type="text/javascript",i.async=!0,i.src="https://analytics.tiktok.com/i18n/pixel/events.js";
-              var o=d.getElementsByTagName("script")[0];o.parentNode.insertBefore(i,o)};
-              ttq.load('D29MT83C7TUCUVSB65KGa');ttq.page();
+              for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);
+              ttq.load=function(e){var n="https://analytics.tiktok.com/i18n/pixel/events.js";
+                var a=d.createElement("script");a.type="text/javascript",a.async=!0,a.src=n+"?sdkid="+e+"&lib=ttq";
+                var s=d.getElementsByTagName("script")[0];s.parentNode.insertBefore(a,s)};
+              ttq.load('D29MT83C7TUCUVSB65KG');
+              ttq.page();
             }(window, document, 'ttq');
           `}
         </Script>
       </head>
       <body className={inter.className}>{children}</body>
     </html>
-  );
+  )
 }
