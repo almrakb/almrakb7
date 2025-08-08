@@ -1,30 +1,35 @@
-'use client'
+// app/page.tsx
+"use client";
 
-import { useEffect } from 'react'
+export default function HomePage() {
+  const phone = "+9665XXXXXXXX"; // عدّل الرقم لاحقًا
 
-export default function Home() {
-  useEffect(() => {
-    const whatsapp = document.querySelector('[href^="https://wa.me"], [href*="&type=whatsapp"]')
-    if (whatsapp) {
-      whatsapp.addEventListener('click', () => {
-        (window as any).ttq?.track('Contact');
-        (window as any).gtag?.('event', 'whatsapp_click');
-      });
-    }
-
-    const form = document.querySelector('form');
-    if (form) {
-      form.addEventListener('submit', () => {
-        (window as any).ttq?.track('Lead');
-        (window as any).gtag?.('event', 'form_submit');
-      });
-    }
-  }, []);
+  const openWhatsApp = () => {
+    const msg = encodeURIComponent("مرحباً، أود الحصول على عرض سعر للشحن.");
+    window.open(`https://wa.me/${phone.replace("+", "")}?text=${msg}`, "_blank");
+  };
 
   return (
-    <main>
-      {/* ضع هنا محتوى صفحة الهبوط */}
-      <h1>مرحباً بك في شركة المراكب للشحن والخدمات اللوجستية</h1>
+    <main style={{ padding: "32px" }}>
+      <h1 style={{ marginBottom: 16 }}>
+        المراكب للشحن — خدمة موثوقة لجميع أنحاء المملكة
+      </h1>
+      <p style={{ marginBottom: 24 }}>
+        ننقل الأثاث والطرود والبضائع بسرعة وأمان وبأسعار منافسة.
+      </p>
+      <button
+        onClick={openWhatsApp}
+        style={{
+          background: "#25D366",
+          color: "#fff",
+          padding: "12px 20px",
+          borderRadius: 8,
+          border: "none",
+          cursor: "pointer",
+        }}
+      >
+        تواصل واتساب
+      </button>
     </main>
-  )
+  );
 }
